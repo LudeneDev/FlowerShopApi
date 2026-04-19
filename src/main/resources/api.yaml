@@ -1,0 +1,202 @@
+openapi: 3.0.3
+info:
+  title: FlowerShop
+  version: 1.0.0
+paths:
+  /flowers:
+    post:
+      summary: Add a new flower
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFlower'
+      responses:
+        '201':
+          description: Flower created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Flower'
+
+    get:
+      summary: Get all available flowers
+      responses:
+        '200':
+          description: List of flowers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Flower'
+
+  /bouquets:
+    get:
+      summary: Get all available bouquets
+      responses:
+        '200':
+          description: List of bouquets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BouquetItem'
+
+    post:
+      summary: Create a bouquet and generate a bill
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateBouquetItem"
+      responses:
+        '201':
+          description: Bouquet created with bill
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bill'
+
+  /bills:
+    get:
+      summary: Get all bills
+      responses:
+        '200':
+          description: List of bills
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Bill'
+
+  /bills/{id}:
+    get:
+      summary: Get a specific bill
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Bill details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bill'
+        '404':
+          description: Bill not found
+
+components:
+  schemas:
+    # --- Flower Schemas ---
+    Flower:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        kind:
+          type: string
+          example: rose
+        quantity:
+          type: integer
+          example: 100
+        avgPrice:
+          type: number
+          format: double
+          example: 1.5
+
+    CreateFlower:
+      type: object
+      required:
+        - kind
+        - quantity
+        - avgPrice
+      properties:
+        kind:
+          type: string
+          example: rose
+        quantity:
+          type: integer
+          example: 100
+        avgPrice:
+          type: number
+          format: double
+          example: 1.5
+
+    # --- Bouquet Schemas ---
+    BouquetFlower:
+      type: object
+      description: Represents the join table between a Bouquet and a Flower (quantity mapping)
+      properties:
+        id:
+          type: string
+          format: uuid
+        flower:
+          $ref: '#/components/schemas/Flower'
+        quantity:
+          type: integer
+          example: 5
+
+    BouquetItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/BouquetFlower"
+        billId:
+          type: string
+          format: uuid
+          description: Reference to the associated Bill to avoid circular JSON recursion
+
+    CreateBouquetFlower:
+      type: object
+      required:
+        - flowerId
+        - quantity
+      properties:
+        flowerId:
+          type: string
+          format: uuid
+          description: ID of the flower to add to the bouquet
+        quantity:
+          type: integer
+          example: 5
+
+    CreateBouquetItem:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/CreateBouquetFlower"
+
+    # --- Bill Schemas ---
+    Bill:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/BouquetItem'
+        totalPrice:
+          type: number
+          format: double
+        createdAt:
+          type: string
+          format: date-time
