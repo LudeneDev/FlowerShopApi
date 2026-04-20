@@ -21,6 +21,10 @@ repositories {
 	mavenCentral()
 }
 
+configurations {
+	mockitoAgent
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-webmvc:4.0.5'
 	implementation 'org.springframework.boot:spring-boot-starter'
@@ -38,11 +42,15 @@ dependencies {
 	testCompileOnly 'org.projectlombok:lombok'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	testAnnotationProcessor 'org.projectlombok:lombok'
+	mockitoAgent('org.mockito:mockito-core:5.14.0') {
+		transitive = false
+	}
 
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+		jvmArgs += "-javaagent:${configurations.mockitoAgent.asPath}"
 }
 
 openApiGenerate {
