@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Log4j2
 @Service
@@ -36,10 +37,7 @@ public class BouquetService implements MySqlAdapterMapper<EntityBouquetItem, Bou
     @Transactional
     public EntityBouquetItem createBouquet(CreateBouquetItem request) {
 
-        EntityBouquetItem ebi = new EntityBouquetItem();
-        ebi = ctoa(request);
-
-
+        EntityBouquetItem ebi = ctoa(request);
         return repo.save(ebi);
     }
 
@@ -97,14 +95,20 @@ public class BouquetService implements MySqlAdapterMapper<EntityBouquetItem, Bou
         for (CreateBouquetFlower cbf : source.getItems()) {
             EntityFlower flower = flowerService.getById(cbf.getFlowerId());
 
-            if (cbf.getQuantity() > flower.getQuantity()) {
+
+            if(Objects.isNull(flower)) throw  new IllegalArgumentException("Flower is null");
+
+            if (cbf.getQuantity() > flower.getQuantity() && cbf.getQuantity() > 0) {
                 throw new IllegalArgumentException("Insufficient stock");
             }
+
 
             EntityBouquetFlower ebf = new EntityBouquetFlower();
             ebf.setFlowers(flower);
             ebf.setBouquet(ebi);
             ebf.setQuantity(cbf.getQuantity());
+            int updateQuantity = flower.getQuantity() - cbf.getQuantity();
+            flowerService.updateQuantity(flower.getId(), updateQuantity);
 
             ebi.getItems().add(ebf);
             price += flower.getAvgPrice() * cbf.getQuantity();

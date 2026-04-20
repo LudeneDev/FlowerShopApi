@@ -5,6 +5,7 @@ import com.ludenedev.flowers.flowers.adapter.mysql.repositories.FlowerRepository
 import com.ludenedev.flowers.flowers.model.CreateFlower;
 import com.ludenedev.flowers.flowers.model.Flower;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +26,13 @@ public class FlowersService implements MySqlAdapterMapper<EntityFlower, Flower> 
                 .map(this::btoa)
                 .toList();
     }
-
+    @Transactional
+    public void updateQuantity(UUID id, int quantity){
+        EntityFlower ef = repo.getReferenceById(id);
+        ef.setQuantity(quantity);
+        repo.save(ef);
+    }
+    @Transactional
     public Flower createFlower(CreateFlower createFlower) {
         EntityFlower entity = this.ctoa(createFlower);
         EntityFlower saved = repo.save(entity);
