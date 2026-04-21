@@ -1,4 +1,4 @@
-package com.ludenedev.flowers.flowers.adapter.mysql.entities;
+package com.ludenedev.flowershop.adapter.mysql.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -16,11 +16,11 @@ public class EntityFlower {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
-    @Column(name = "kind")
+    @Column(name = "kind", nullable = false)
     String kind;
-    @Column(name = "quantity")
+    @Column(name = "quantity", nullable = false)
     Integer quantity;
-
+    @Column(nullable = false)
     Double avgPrice;
 
 }
