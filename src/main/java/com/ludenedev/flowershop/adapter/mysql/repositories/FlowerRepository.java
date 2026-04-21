@@ -1,6 +1,6 @@
-package com.ludenedev.flowers.flowers.adapter.mysql.repositories;
+package com.ludenedev.flowershop.adapter.mysql.repositories;
 
-import com.ludenedev.flowers.flowers.adapter.mysql.entities.EntityFlower;
+import com.ludenedev.flowershop.adapter.mysql.entities.EntityFlower;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

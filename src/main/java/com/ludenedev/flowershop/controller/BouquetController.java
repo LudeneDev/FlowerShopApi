@@ -1,12 +1,13 @@
-package com.ludenedev.flowers.flowers.controller;
+package com.ludenedev.flowershop.controller;
 
-import com.ludenedev.flowers.flowers.adapter.mysql.entities.EntityBouquetItem;
-import com.ludenedev.flowers.flowers.api.BouquetsApi;
-import com.ludenedev.flowers.flowers.model.Bill;
-import com.ludenedev.flowers.flowers.model.BouquetItem;
-import com.ludenedev.flowers.flowers.model.CreateBouquetItem;
-import com.ludenedev.flowers.flowers.service.BouquetService;
+import com.ludenedev.flowershop.adapter.mysql.entities.EntityBouquetItem;
+import com.ludenedev.flowershop.api.BouquetsApi;
+import com.ludenedev.flowershop.model.Bill;
+import com.ludenedev.flowershop.model.BouquetItem;
+import com.ludenedev.flowershop.model.CreateBouquetItem;
+import com.ludenedev.flowershop.service.BouquetService;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,13 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 public class BouquetController implements BouquetsApi {
 
     private final BouquetService bouquetService;
 
-    public BouquetController(BouquetService bouquetService) {
-        this.bouquetService = bouquetService;
-    }
 
     @Override
     public ResponseEntity<List<BouquetItem>> bouquetsGet() {

@@ -1,9 +1,10 @@
-package com.ludenedev.flowers.flowers.controller;
+package com.ludenedev.flowershop.controller;
 
-import com.ludenedev.flowers.flowers.api.FlowersApi;
-import com.ludenedev.flowers.flowers.model.CreateFlower;
-import com.ludenedev.flowers.flowers.model.Flower;
-import com.ludenedev.flowers.flowers.service.FlowersService;
+import com.ludenedev.flowershop.api.FlowersApi;
+import com.ludenedev.flowershop.model.CreateFlower;
+import com.ludenedev.flowershop.model.Flower;
+import com.ludenedev.flowershop.service.FlowersService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,13 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 public class FlowerController implements FlowersApi {
 
     private final FlowersService flowersService;
 
-    public FlowerController(FlowersService flowersService) {
-        this.flowersService = flowersService;
-    }
 
     @Override
     public ResponseEntity<List<Flower>> flowersGet() {
@@ -27,6 +26,9 @@ public class FlowerController implements FlowersApi {
 
     @Override
     public ResponseEntity<Flower> flowersPost(CreateFlower createFlower) {
+        if(createFlower.getAvgPrice() <= 0 || createFlower.getQuantity() <= 0 || createFlower.getKind().isEmpty()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         Flower createdFlower = flowersService.createFlower(createFlower);
 
         return new ResponseEntity<>(createdFlower, HttpStatus.CREATED);

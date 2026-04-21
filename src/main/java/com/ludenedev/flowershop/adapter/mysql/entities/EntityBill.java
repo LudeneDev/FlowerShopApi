@@ -1,4 +1,4 @@
-package com.ludenedev.flowers.flowers.adapter.mysql.entities;
+package com.ludenedev.flowershop.adapter.mysql.entities;
 
 
 import jakarta.persistence.*;

@@ -1,4 +1,4 @@
-package com.ludenedev.flowers.flowers.configuration;
+package com.ludenedev.flowershop.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,12 +14,13 @@ public class SecurityConfig {
     public SecurityFilterChain setupSecurity(HttpSecurity http) {
         http.authorizeHttpRequests(
                         (authorize) -> {
-                            authorize.requestMatchers("/actuator", "/actuator/**").permitAll();
-                            authorize.anyRequest().authenticated();
+                            authorize.requestMatchers("/flowers","/bouquets","/bills","/bills/**").authenticated();
+                            authorize.requestMatchers("/actuator","/actuator/**").permitAll();
 
 
                         }
-                ).httpBasic(Customizer.withDefaults())
+                )
+                .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }

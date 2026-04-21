@@ -1,4 +1,4 @@
-package com.ludenedev.flowers.flowers.service;
+package com.ludenedev.flowershop.service;
 
 public interface MySqlAdapterMapper<T, Y> {
 

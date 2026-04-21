@@ -1,11 +1,11 @@
-package com.ludenedev.flowers.flowers.service;
+package com.ludenedev.flowershop.service;
 
-import com.ludenedev.flowers.flowers.adapter.mysql.entities.EntityBill;
-import com.ludenedev.flowers.flowers.adapter.mysql.entities.EntityBouquetFlower;
-import com.ludenedev.flowers.flowers.adapter.mysql.entities.EntityBouquetItem;
-import com.ludenedev.flowers.flowers.adapter.mysql.entities.EntityFlower;
-import com.ludenedev.flowers.flowers.adapter.mysql.repositories.BouquetRepository;
-import com.ludenedev.flowers.flowers.model.*;
+import com.ludenedev.flowershop.adapter.mysql.entities.EntityBill;
+import com.ludenedev.flowershop.adapter.mysql.entities.EntityBouquetFlower;
+import com.ludenedev.flowershop.adapter.mysql.entities.EntityBouquetItem;
+import com.ludenedev.flowershop.adapter.mysql.entities.EntityFlower;
+import com.ludenedev.flowershop.adapter.mysql.repositories.BouquetRepository;
+import com.ludenedev.flowershop.model.*;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;

@@ -1,9 +1,9 @@
-package com.ludenedev.flowers.flowers.service;
+package com.ludenedev.flowershop.service;
 
-import com.ludenedev.flowers.flowers.adapter.mysql.entities.EntityFlower;
-import com.ludenedev.flowers.flowers.adapter.mysql.repositories.FlowerRepository;
-import com.ludenedev.flowers.flowers.model.CreateFlower;
-import com.ludenedev.flowers.flowers.model.Flower;
+import com.ludenedev.flowershop.adapter.mysql.entities.EntityFlower;
+import com.ludenedev.flowershop.adapter.mysql.repositories.FlowerRepository;
+import com.ludenedev.flowershop.model.CreateFlower;
+import com.ludenedev.flowershop.model.Flower;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
