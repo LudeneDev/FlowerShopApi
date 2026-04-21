@@ -46,3 +46,13 @@ jobs:
           tags: |
             ghcr.io/ludenedev/flowershopapi:latest
             ghcr.io/ludenedev/flowershopapi:${{ github.ref_name }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+            files: build/libs/*.jar  # This uploads your JAR as a downloadable asset
+            draft: false
+            prerelease: false
+            generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
