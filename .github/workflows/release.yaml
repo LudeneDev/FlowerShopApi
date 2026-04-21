@@ -44,5 +44,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ toLower(github.repository) }}:latest
-            ghcr.io/${{ toLower(github.repository) }}:${{ github.ref_name }}
+            ghcr.io/ludenedev/flowershopapi:latest
+            ghcr.io/ludenedev/flowershopapi:${{ github.ref_name }}
