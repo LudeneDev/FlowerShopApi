@@ -1,10 +1,10 @@
-package com.ludenedev.flowers.flowers.service;
+package com.ludenedev.flowershop.service;
 
-import com.ludenedev.flowers.flowers.adapter.mysql.entities.EntityBouquetItem;
-import com.ludenedev.flowers.flowers.adapter.mysql.entities.EntityFlower;
-import com.ludenedev.flowers.flowers.adapter.mysql.repositories.BouquetRepository;
-import com.ludenedev.flowers.flowers.model.CreateBouquetFlower;
-import com.ludenedev.flowers.flowers.model.CreateBouquetItem;
+import com.ludenedev.flowershop.adapter.mysql.entities.EntityBouquetItem;
+import com.ludenedev.flowershop.adapter.mysql.entities.EntityFlower;
+import com.ludenedev.flowershop.adapter.mysql.repositories.BouquetRepository;
+import com.ludenedev.flowershop.model.CreateBouquetFlower;
+import com.ludenedev.flowershop.model.CreateBouquetItem;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

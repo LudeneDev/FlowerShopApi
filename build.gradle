@@ -39,6 +39,9 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test:4.0.5'
 	testCompileOnly 'org.projectlombok:lombok'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	testAnnotationProcessor 'org.projectlombok:lombok'
@@ -61,8 +64,8 @@ openApiGenerate {
     inputSpec = "$rootDir/src/main/resources/api.yaml"
     outputDir = "$buildDir/generated"
 
-    apiPackage = "com.ludenedev.flowers.flowers.api"
-    modelPackage = "com.ludenedev.flowers.flowers.model"
+    apiPackage = "com.ludenedev.flowershop.api"
+    modelPackage = "com.ludenedev.flowershop.model"
 
 
     generateApiTests = false
@@ -74,17 +77,13 @@ openApiGenerate {
         interfaceOnly        : "true",
 		openApiNullable : "false",
 
-        // IMPORTANT: still use Spring 3 templates
-        // (Boot 4 compatibility comes from runtime, not generator)
         useSpringBoot4       : "true",
 
-        // REQUIRED for Boot 4 (Jakarta namespace)
         useJakartaEe         : "true",
 		documentationProvider: "none",
 		useJackson3: "true",
 
 
-        // Better API structure
 
     ]
 

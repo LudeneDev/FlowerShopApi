@@ -1,11 +1,11 @@
-package com.ludenedev.flowers.flowers.service;
+package com.ludenedev.flowershop.service;
 
 
-import com.ludenedev.flowers.flowers.adapter.mysql.entities.EntityBill;
-import com.ludenedev.flowers.flowers.adapter.mysql.entities.EntityBouquetItem;
-import com.ludenedev.flowers.flowers.adapter.mysql.repositories.BillRepository;
-import com.ludenedev.flowers.flowers.model.Bill;
-import com.ludenedev.flowers.flowers.model.BouquetItem;
+import com.ludenedev.flowershop.adapter.mysql.entities.EntityBill;
+import com.ludenedev.flowershop.adapter.mysql.entities.EntityBouquetItem;
+import com.ludenedev.flowershop.adapter.mysql.repositories.BillRepository;
+import com.ludenedev.flowershop.model.Bill;
+import com.ludenedev.flowershop.model.BouquetItem;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

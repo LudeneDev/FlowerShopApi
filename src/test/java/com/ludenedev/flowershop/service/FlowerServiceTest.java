@@ -1,9 +1,9 @@
-package com.ludenedev.flowers.flowers.service;
+package com.ludenedev.flowershop.service;
 
-import com.ludenedev.flowers.flowers.adapter.mysql.entities.EntityFlower;
-import com.ludenedev.flowers.flowers.adapter.mysql.repositories.FlowerRepository;
-import com.ludenedev.flowers.flowers.model.CreateFlower;
-import com.ludenedev.flowers.flowers.model.Flower;
+import com.ludenedev.flowershop.adapter.mysql.entities.EntityFlower;
+import com.ludenedev.flowershop.adapter.mysql.repositories.FlowerRepository;
+import com.ludenedev.flowershop.model.CreateFlower;
+import com.ludenedev.flowershop.model.Flower;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,7 +29,7 @@ class FlowerServiceTest {
 
     @Test
     void getAllFlowers_ShouldReturnMappedList() {
-        // Arrange
+
         UUID id = UUID.randomUUID();
         EntityFlower entity = new EntityFlower();
         entity.setId(id);
@@ -39,10 +39,10 @@ class FlowerServiceTest {
 
         when(repository.findAll()).thenReturn(List.of(entity));
 
-        // Act
+
         List<Flower> result = service.getAllFlowers();
 
-        // Assert
+
         assertThat(result).hasSize(1);
         assertThat(result.get(0).getKind()).isEqualTo("Rose");
         verify(repository).findAll();
@@ -50,13 +50,12 @@ class FlowerServiceTest {
 
     @Test
     void createFlower_ShouldMapAndSave() {
-        // Arrange
+
         CreateFlower dto = new CreateFlower();
         dto.setKind("Tulip");
         dto.setQuantity(5);
         dto.setAvgPrice(2.5);
 
-        // Simulate DB returning a saved entity with an ID
         EntityFlower savedEntity = new EntityFlower();
         savedEntity.setId(UUID.randomUUID());
         savedEntity.setKind("Tulip");
@@ -65,10 +64,8 @@ class FlowerServiceTest {
 
         when(repository.save(any(EntityFlower.class))).thenReturn(savedEntity);
 
-        // Act
         Flower result = service.createFlower(dto);
 
-        // Assert
         assertThat(result).isNotNull();
         assertThat(result.getId()).isNotNull();
         assertThat(result.getKind()).isEqualTo("Tulip");
@@ -76,4 +73,6 @@ class FlowerServiceTest {
         // Verify we attempted to save
         verify(repository).save(any(EntityFlower.class));
     }
+
+
 }
