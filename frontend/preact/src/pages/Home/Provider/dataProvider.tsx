@@ -1,5 +1,6 @@
 import {  useContext, useState, useEffect } from 'preact/hooks';
-import { Bill, Configuration, DefaultApi, Flower } from '../../../api';
+import {Flower, Bill, DefaultApi} from "@api/api"
+import {Configuration} from '@api/configuration'
 import { createContext } from 'preact';
 
 

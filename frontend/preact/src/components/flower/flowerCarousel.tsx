@@ -1,6 +1,6 @@
 
 import Carousel from '../carousel/carousel';
-import { Flower } from "../../api/api"
+import { Flower } from "@api/api"
 import FlowerCard from './flowerCardComp';
 import { useDataContext } from '../../pages/Home/Provider/dataProvider';
 

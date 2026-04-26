@@ -29,11 +29,7 @@ tasks.register("installDependencies", NpmTask.class){
     workingDir = file("preact")
     args = ["ci"]
 }
-tasks.register("buildFrontend", NpmTask.class ){
-    dependsOn("installDependencies")
-    workingDir = file("preact")
-    args = ["run", "build"]
-}
+
 
 
 
@@ -57,6 +53,13 @@ openApiGenerate {
 
 tasks.named("build"){
     dependsOn("buildFrontend")
+}
+
+tasks.register("buildFrontend", NpmTask.class ){
+    dependsOn("openApiGenerate")
+    dependsOn("installDependencies")
+    workingDir = file("preact")
+    args = ["run", "build"]
 }
 
 test {

@@ -1,5 +1,5 @@
 import { Button, Card, CardActionArea, CardContent, Typography } from "@mui/material";
-import { BouquetFlower, Flower } from "../../api";
+import { BouquetFlower, Flower } from "@api/api";
 import { Check } from "@mui/icons-material";
 
 

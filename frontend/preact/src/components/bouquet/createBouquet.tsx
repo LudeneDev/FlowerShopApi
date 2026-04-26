@@ -1,4 +1,5 @@
-import { Configuration, CreateBouquetItem, DefaultApi } from "../../api";
+import { CreateBouquetItem, DefaultApi } from "@api/api";
+import { Configuration } from "@api/configuration";
 
 
 export default async function createBouquet(bouquet : CreateBouquetItem){

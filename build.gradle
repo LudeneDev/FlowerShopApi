@@ -39,3 +39,8 @@ tasks.named("test"){
 test {
 	enabled = false
 }
+
+subprojects{
+	apply plugin : "org.openapi.generator"
+
+}

@@ -1,4 +1,4 @@
-import { CreateBouquetFlower, Flower } from "../../api/api"
+import { CreateBouquetFlower, Flower } from "@api/api"
 import { useEffect, useState } from "preact/hooks"
 import { useBouquet } from "../../pages/Home/Provider/bouquetFlowerProvider";
 import FlowerCardFront from "./flowerCardFront";

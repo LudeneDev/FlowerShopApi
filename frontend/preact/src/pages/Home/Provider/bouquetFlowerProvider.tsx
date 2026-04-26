@@ -1,6 +1,6 @@
 import { useContext, useState } from 'preact/hooks';
 import { createContext } from 'preact/compat';
-import { CreateBouquetFlower } from '../../../api';
+import { CreateBouquetFlower } from '@api/api';
 
 interface BouquetContextType {
   orders: CreateBouquetFlower[];

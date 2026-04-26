@@ -14,4 +14,9 @@ export default defineConfig({
 			},*/
 		}),
 	],
+	resolve : {
+		alias:{
+			"@api":new URL('./src/api', import.meta.url).pathname
+		}
+	}
 });

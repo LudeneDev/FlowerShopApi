@@ -1,5 +1,5 @@
 import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
-import { Flower } from "../../api";
+import { Flower } from "@api/api";
 
 
 
