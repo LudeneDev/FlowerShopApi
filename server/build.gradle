@@ -1,0 +1,120 @@
+
+
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '4.0.5'
+	id 'io.spring.dependency-management' version '1.1.7'
+	id "org.openapi.generator" version "7.19.0"
+}
+
+group = 'com.ludenedev.flowers'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(25)
+	}
+}
+
+
+repositories {
+	mavenCentral()
+}
+
+configurations {
+	mockitoAgent
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-webmvc:4.0.5'
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-jackson'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'com.h2database:h2'
+	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test:4.0.5'
+	testCompileOnly 'org.projectlombok:lombok'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+	mockitoAgent('org.mockito:mockito-core:5.14.0') {
+		transitive = false
+	}
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+		jvmArgs += "-javaagent:${configurations.mockitoAgent.asPath}"
+}
+
+
+openApiGenerate {
+    generatorName = "spring"
+
+
+
+    inputSpec = rootProject.projectDir.toString()+'/src/main/resources/api.yaml'.toString();
+    outputDir = "$buildDir/generated"
+
+    apiPackage = "com.ludenedev.flowershop.api"
+    modelPackage = "com.ludenedev.flowershop.model"
+
+
+    generateApiTests = false
+    generateModelTests = false
+    generateApiDocumentation = false
+    generateModelDocumentation = false
+
+    configOptions = [
+        interfaceOnly    	: "true",
+		openApiNullable 	: "false",
+
+        useSpringBoot4      : "true",
+
+        useJakartaEe        : "true",
+		documentationProvider: "none",
+		useJackson3: "true",
+    ]
+
+    globalProperties = [
+        apis   : "",
+        models : "",
+			supportingFiles: "ApiUtil.java"
+    ]
+	sourceSets{
+		main{
+			java{
+				srcDir "$buildDir/generated/src/main/java"
+			}
+		}
+	}
+}
+tasks.named("compileJava"){
+	dependsOn tasks.named("openApiGenerate")
+}
+
+tasks.register("copyFrontend", Copy.class){
+	dependsOn(":frontend:buildFrontend")
+	from("../frontend/preact/dist/")
+	into("./src/main/resources/static/")
+}
+
+tasks.register("copyDocs", Copy.class){
+	dependsOn(":makedocs:makeDocs")
+	from("../makedocs/api.html")
+	into("./src/main/resources/static/")
+}
+tasks.named("processResources"){
+	dependsOn("copyFrontend")
+	dependsOn("copyDocs")
+}
+

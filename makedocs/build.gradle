@@ -1,0 +1,34 @@
+import com.github.gradle.node.npm.task.NpmTask
+
+plugins {
+    id 'java'
+    id "com.github.node-gradle.node" version "7.0.2"
+}
+
+group = 'com.ludenedev.flowers'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+node{
+    download = true
+    version="24.12.0"
+}
+
+dependencies {
+}
+
+tasks.register("installDependenci", NpmTask.class){
+    args = ["i"]
+}
+
+tasks.register("makeDocs", NpmTask.class){
+    dependsOn("installDependenci")
+    args= ["run","build",rootProject.projectDir.toString()+'/src/main/resources/api.yaml'.toString()]
+}
+
+test {
+    failOnNoDiscoveredTests = false
+}

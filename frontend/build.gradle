@@ -1,0 +1,64 @@
+import com.github.gradle.node.npm.task.NpmTask
+
+plugins {
+    id 'java'
+    id ("com.github.node-gradle.node") version ("7.0.2")
+
+}
+
+version = "1.0-SNAPSHOT"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+}
+
+group = 'com.ludenedev.flowers'
+version = '0.0.1-SNAPSHOT'
+
+node{
+    download = true
+    version="24.12.0"
+}
+
+
+tasks.register("installDependencies", NpmTask.class){
+    workingDir = file("preact")
+    args = ["ci"]
+}
+tasks.register("buildFrontend", NpmTask.class ){
+    dependsOn("installDependencies")
+    workingDir = file("preact")
+    args = ["run", "build"]
+}
+
+
+
+
+openApiGenerate {
+    inputSpec = rootProject.projectDir.toString()+'/src/main/resources/api.yaml'.toString()
+
+    generatorName = "typescript-axios"
+
+    outputDir = file("${projectDir}/preact/src/api").toString()
+
+    configOptions = [
+    npmName : "flowers-demo",
+    supportsES6 : "true",
+    withInterfaces : "true",
+    withSeparateModelsAndApi : "true",
+    modelPackage : "model",
+    apiPackage : "api"
+    ]
+}
+
+tasks.named("build"){
+    dependsOn("buildFrontend")
+}
+
+test {
+    enabled = false
+}
