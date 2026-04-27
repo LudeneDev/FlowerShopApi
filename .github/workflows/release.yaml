@@ -4,9 +4,10 @@ permissions:
   packages: write
 
 on:
-  push:
-    tags: 
-    - '*'
+  workflow_run:
+    workflows: ["pull request pipeline"]
+    types:
+      - completed
 
 jobs:
   build-and-push:
