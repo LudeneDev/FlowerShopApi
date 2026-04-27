@@ -23,8 +23,9 @@ repositories {
 
 
 tasks.register("copyServer", Copy.class){
-	from("./server/build/")
-	into("./build/")
+	dependsOn("server:bootJar")
+	from("./server/build/libs")
+	into("./build/libs")
 	//for pipeline proposes
 }
 
@@ -39,7 +40,9 @@ tasks.named("test"){
 test {
 	enabled = false
 }
-
+build {
+	enabled = false
+}
 subprojects{
 	apply plugin : "org.openapi.generator"
 

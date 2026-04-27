@@ -117,3 +117,7 @@ tasks.named("processResources"){
 	dependsOn("copyDocs")
 }
 
+bootJar {
+	archiveFileName = "app.jar"
+}
+
