@@ -2,6 +2,7 @@ name: Build and Push Docker Image
 permissions:
   contents: write
   packages: write
+  repo: write
 
 on:
   push:
@@ -50,12 +51,17 @@ jobs:
             ghcr.io/ludenedev/flowershopapi:latest
             ghcr.io/ludenedev/flowershopapi:${{ github.ref_name }}
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-            files: build/libs/*.jar  # This uploads your JAR as a downloadable asset
-            draft: false
-            prerelease: false
-            generate_release_notes: true
+      - name: Create Release
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: build/libs/*.jar
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            ## Changes in this Release
+            - Built via Gradle
+            - Checkout the source code for details.
+          draft: false
+          prerelease: false
