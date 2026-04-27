@@ -6,7 +6,7 @@ permissions:
 on:
   push:
     tags: 
-    - "*"
+    - '*'
 
 jobs:
   build-and-push:
@@ -20,5 +20,5 @@ jobs:
           service_id: ${{ secrets.RENDER_SERVICE_ID }}
           api_key: ${{ secrets.RENDER_API_KEY }}
           wait_deploy: true
-          ref: github.ref_name
+          ref: ${{  github.ref_name }}
 
