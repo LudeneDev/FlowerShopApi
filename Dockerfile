@@ -1,17 +1,11 @@
-FROM gradle:jdk25-corretto as build
-
-WORKDIR /app
-
-COPY . .
-run gradle build
-
 FROM eclipse-temurin:25-jre-alpine
 
 
 
 
 WORKDIR /app
-COPY build/libs/ .
-EXPOSE 8080
+COPY build/libs/flowershop.jar app.jar
 
-ENTRYPOINT ["java", "-jar", "flowershop.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+EXPOSE 8080
