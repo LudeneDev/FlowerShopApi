@@ -118,6 +118,6 @@ tasks.named("processResources"){
 }
 
 bootJar {
-	archiveFileName = "app.jar"
+	archiveFileName = "flowershop.jar"
 }
 

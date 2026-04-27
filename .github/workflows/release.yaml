@@ -51,7 +51,7 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          files: build/libs/*.jar
+          files: build/libs/flowershop.jar
           tag_name: ${{ github.ref }}
           draft: false
           prerelease: false
