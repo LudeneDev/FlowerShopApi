@@ -33,4 +33,5 @@ jobs:
               git config user.name github-actions[bot]
               git config user.email github-actions[bot]@user.noreply.github.com
               TAG='${{github.event.pull_request.title}}'
+              git tag $TAG
               git push origin $TAG
