@@ -1,20 +1,22 @@
-FROM gradle:8.7-jdk21 AS backend
+FROM gradle:jdk25-corretto AS build
 
 WORKDIR /app
 
 COPY . .
 
-RUN ./gradlew clean build
+RUN if [ -f "./gradlew" ]; then \
+      chmod +x gradlew && ./gradlew clean build -x test --no-daemon; \
+    else \
+      gradle clean build -x test --no-daemon; \
+    fi
 
 
-FROM eclipse-temurin:25-jre-alpine
-
-
-
+FROM eclipse-temurin:25-jdk
 
 WORKDIR /app
-COPY build/libs/flowershop.jar app.jar
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+COPY --from=build /app/build/libs/flowershop.jar app.jar
 
 EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
