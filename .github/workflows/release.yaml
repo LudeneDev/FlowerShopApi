@@ -19,6 +19,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
       - name: Set up JDK 25
         uses: actions/setup-java@v4
         with:
@@ -28,8 +31,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build -x javadoc
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
 
       - name: Run Tests
         run: ./gradlew test
@@ -51,16 +52,11 @@ jobs:
             ghcr.io/ludenedev/flowershopapi:${{ github.ref_name }}
 
       - name: Create Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
         with:
           files: build/libs/*.jar
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: |
-            ## Changes in this Release
-            - Built via Gradle
-            - Checkout the source code for details.
           draft: false
           prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
