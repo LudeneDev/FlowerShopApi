@@ -10,7 +10,7 @@ on:
 jobs:
   build-and-push:
     if:
-      github.event_name == 'pull_request' && github.event.pull_request.merge == true
+      github.event.pull_request.merge == true
     runs-on: ubuntu-latest
 
     steps:
