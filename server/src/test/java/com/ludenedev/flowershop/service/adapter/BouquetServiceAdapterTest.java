@@ -12,6 +12,7 @@ import com.ludenedev.flowershop.model.CreateBouquetItem;
 import com.ludenedev.flowershop.model.Flower;
 import com.ludenedev.flowershop.service.BouquetService;
 import com.ludenedev.flowershop.service.FlowersService;
+import com.ludenedev.flowershop.service.providers.BouquetProviderImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -31,6 +32,10 @@ class BouquetServiceAdapterTest {
 
     @Mock
     private BouquetRepository repo;
+
+    @Mock
+    private BouquetProviderImpl provider;
+
     @Mock
     private FlowersService flowerService;
 

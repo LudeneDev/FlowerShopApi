@@ -5,8 +5,17 @@ import com.ludenedev.flowershop.adapter.mysql.entities.EntityBouquetFlower;
 import com.ludenedev.flowershop.adapter.mysql.entities.EntityBouquetItem;
 import com.ludenedev.flowershop.adapter.mysql.entities.EntityFlower;
 import com.ludenedev.flowershop.adapter.mysql.repositories.BouquetRepository;
+import com.ludenedev.flowershop.demo.DemoContext;
+import com.ludenedev.flowershop.demo.entities.DemoEntityBill;
+import com.ludenedev.flowershop.demo.entities.DemoEntityBouquetItem;
+import com.ludenedev.flowershop.demo.entities.DemoEntitySession;
+import com.ludenedev.flowershop.demo.repositories.DemoBillRepository;
+import com.ludenedev.flowershop.demo.repositories.DemoBouquetItemRepository;
+import com.ludenedev.flowershop.demo.repositories.DemoSessionRepository;
 import com.ludenedev.flowershop.model.*;
+import com.ludenedev.flowershop.service.providers.BouquetProvider;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,19 +26,19 @@ import java.util.Objects;
 
 @Log4j2
 @Service
+@AllArgsConstructor
 public class BouquetService implements MySqlAdapterMapper<EntityBouquetItem, BouquetItem> {
 
     private final BouquetRepository repo;
     private final FlowersService flowerService;
+    private final BouquetProvider provider;
 
-    public BouquetService(BouquetRepository repo, FlowersService flowerService) {
-        this.repo = repo;
-        this.flowerService = flowerService;
-    }
+
+
 
 
     public List<BouquetItem> getAllBouquets() {
-        return repo.findAll().stream()
+        return provider.getAll().stream()
                 .map(this::btoa)
                 .toList();
     }
@@ -38,6 +47,14 @@ public class BouquetService implements MySqlAdapterMapper<EntityBouquetItem, Bou
     public EntityBouquetItem createBouquet(CreateBouquetItem request) {
 
         EntityBouquetItem ebi = ctoa(request);
+        ebi = repo.save(ebi);
+        Bill bill = new Bill();
+        bill.setId(ebi.getBill().getId());
+        bill.setTotalPrice(ebi.getBill().getTotalPrice());
+        bill.addItemsItem(btoa(ebi));
+        provider.afterCreate(ebi);
+
+
         return repo.save(ebi);
     }
 
@@ -49,6 +66,7 @@ public class BouquetService implements MySqlAdapterMapper<EntityBouquetItem, Bou
 
 
         if (source.getId() != null) {
+            provider.checkForSession(List.of(source.getId()));
             return repo.getReferenceById(source.getId());
         }
 
@@ -146,6 +164,7 @@ public class BouquetService implements MySqlAdapterMapper<EntityBouquetItem, Bou
 
     public EntityBouquetItem getByModel(BouquetItem bi) {
         if (bi.getId() == null) throw new IllegalArgumentException("ID cannot be null");
+        provider.checkForSession(List.of(bi.getId()));
         return repo.getReferenceById(bi.getId());
     }
 }

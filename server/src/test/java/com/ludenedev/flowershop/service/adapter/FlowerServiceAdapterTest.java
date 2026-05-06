@@ -4,6 +4,7 @@ import com.ludenedev.flowershop.adapter.mysql.entities.EntityFlower;
 import com.ludenedev.flowershop.adapter.mysql.repositories.FlowerRepository;
 import com.ludenedev.flowershop.model.Flower;
 import com.ludenedev.flowershop.service.FlowersService;
+import com.ludenedev.flowershop.service.providers.FlowerProviderImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,6 +20,9 @@ class FlowerServiceAdapterTest {
 
     @Mock
     private FlowerRepository repository;
+
+    @Mock
+    private FlowerProviderImpl provider;
 
     @InjectMocks
     private FlowersService service;

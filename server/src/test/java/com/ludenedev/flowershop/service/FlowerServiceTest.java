@@ -4,11 +4,13 @@ import com.ludenedev.flowershop.adapter.mysql.entities.EntityFlower;
 import com.ludenedev.flowershop.adapter.mysql.repositories.FlowerRepository;
 import com.ludenedev.flowershop.model.CreateFlower;
 import com.ludenedev.flowershop.model.Flower;
+import com.ludenedev.flowershop.service.providers.FlowerProviderImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 import java.util.UUID;
@@ -17,12 +19,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
+@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class FlowerServiceTest {
 
     @Mock
     private FlowerRepository repository;
+
+    @Mock
+    FlowerProviderImpl provider;
 
     @InjectMocks
     private FlowersService service;
@@ -37,7 +42,7 @@ class FlowerServiceTest {
         entity.setQuantity(10);
         entity.setAvgPrice(5.0);
 
-        when(repository.findAll()).thenReturn(List.of(entity));
+        when(provider.getAll()).thenReturn(List.of(entity));
 
 
         List<Flower> result = service.getAllFlowers();
@@ -45,7 +50,7 @@ class FlowerServiceTest {
 
         assertThat(result).hasSize(1);
         assertThat(result.get(0).getKind()).isEqualTo("Rose");
-        verify(repository).findAll();
+        verify(provider).getAll();
     }
 
     @Test

@@ -6,12 +6,14 @@ import com.ludenedev.flowershop.adapter.mysql.entities.EntityBouquetItem;
 import com.ludenedev.flowershop.adapter.mysql.repositories.BillRepository;
 import com.ludenedev.flowershop.model.Bill;
 import com.ludenedev.flowershop.model.BouquetItem;
+import com.ludenedev.flowershop.service.providers.BillProviderImpl;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,9 +24,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
+@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class BillServiceTest {
+
+    @Mock
+    private BillProviderImpl provider;
 
     @Mock
     private BillRepository repository;
@@ -41,13 +46,13 @@ class BillServiceTest {
         entity.setId(UUID.randomUUID());
         entity.setTotalPrice(100.0);
 
-        when(repository.findAll()).thenReturn(List.of(entity));
+        when(provider.getAll()).thenReturn(List.of(entity));
 
         List<Bill> result = billService.getAllBills();
 
         assertThat(result).hasSize(1);
         assertThat(result.get(0).getTotalPrice()).isEqualTo(100.0);
-        verify(repository).findAll();
+        verify(provider).getAll();
     }
 
     @Test

@@ -5,11 +5,13 @@ import com.ludenedev.flowershop.adapter.mysql.entities.EntityFlower;
 import com.ludenedev.flowershop.adapter.mysql.repositories.BouquetRepository;
 import com.ludenedev.flowershop.model.CreateBouquetFlower;
 import com.ludenedev.flowershop.model.CreateBouquetItem;
+import com.ludenedev.flowershop.service.providers.BouquetProviderImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 import java.util.UUID;
@@ -18,12 +20,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-
+@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class BouquetServiceTest {
 
     @Mock
     private BouquetRepository repo;
+
+    @Mock
+    private BouquetProviderImpl provider;
 
     @Mock
     private FlowersService flowerService;
@@ -51,6 +56,7 @@ class BouquetServiceTest {
         when(repo.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
         EntityBouquetItem result = service.createBouquet(request);
+
 
         assertThat(result).isNotNull();
     }

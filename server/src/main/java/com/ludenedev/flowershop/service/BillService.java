@@ -3,10 +3,16 @@ package com.ludenedev.flowershop.service;
 import com.ludenedev.flowershop.adapter.mysql.entities.EntityBill;
 import com.ludenedev.flowershop.adapter.mysql.entities.EntityBouquetItem;
 import com.ludenedev.flowershop.adapter.mysql.repositories.BillRepository;
+import com.ludenedev.flowershop.demo.DemoContext;
+import com.ludenedev.flowershop.demo.entities.DemoEntityBill;
+import com.ludenedev.flowershop.demo.repositories.DemoBillRepository;
 import com.ludenedev.flowershop.model.Bill;
 import com.ludenedev.flowershop.model.BouquetItem;
+import com.ludenedev.flowershop.service.providers.BillProvider;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,26 +22,26 @@ import java.util.UUID;
 
 @Slf4j
 @Service
+@AllArgsConstructor
 public class BillService implements MySqlAdapterMapper<EntityBill, Bill> {
 
     private final BillRepository repo;
     private final BouquetService bouquetService;
+    private final BillProvider provider;
 
-    public BillService(BillRepository repo, BouquetService bouquetService) {
-        this.repo = repo;
-        this.bouquetService = bouquetService;
-    }
 
 
     @Transactional(readOnly = true)
     public List<Bill> getAllBills() {
-        return repo.findAll().stream()
+        return provider.getAll().stream()
                 .map(this::btoa)
                 .toList();
     }
 
     @Transactional(readOnly = true)
-    public Bill getBillById(UUID id) {
+    public Bill getBillById(UUID id)
+    {
+        provider.checkForSession(List.of(id));
         return repo.findById(id)
                 .map(this::btoa)
                 .orElseThrow(() -> new EntityNotFoundException("Bill not found with id: " + id));
