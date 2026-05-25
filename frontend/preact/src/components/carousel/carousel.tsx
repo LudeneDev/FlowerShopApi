@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks';
-import styles from './Carousel.module.css';
+import styles from './carousel.module.css';
 import { Box, Grid, IconButton } from '@mui/material';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import ArrowForward from '@mui/icons-material/ArrowForward';
