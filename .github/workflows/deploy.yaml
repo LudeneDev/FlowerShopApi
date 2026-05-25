@@ -60,7 +60,9 @@ jobs:
       # Build Docker image
       # -----------------------------
       - name: Set lowercase repository
-        run: echo "REPO_LC=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
+        shell: bash
+        run: |
+          echo "REPO_LC=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
       - name: Build Docker Image
         run: |
