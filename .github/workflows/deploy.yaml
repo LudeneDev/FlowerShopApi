@@ -57,7 +57,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       # -----------------------------
-      # Build Docker image
+      # Build and Push Docker image
       # -----------------------------
       - name: Build Docker Image
         run: |
@@ -67,13 +67,7 @@ jobs:
         run: |
           docker push ghcr.io/ludenedev/flowershopapi/flowershop:latest
 
-      # -----------------------------
-      # Push Docker image
-      # -----------------------------
-
-      - name: Push Docker Image
-        run: |
-          docker push ghcr.io/${{ github.repository }}/flowershop:latest
+    
 
       # -----------------------------
       # Trigger Render deploy
