@@ -23,15 +23,14 @@ repositories {
 
 
 tasks.register("copyServer", Copy.class){
-	dependsOn("server:bootJar")
 	from("./server/build/libs")
 	into("./build/libs")
 	//for pipeline proposes
 }
 
 
-tasks.named("jar"){
-	dependsOn("copyServer")
+tasks.named("build") {
+	dependsOn(":server:bootJar","copyServer")
 }
 tasks.named("test"){
 	dependsOn("copyServer")

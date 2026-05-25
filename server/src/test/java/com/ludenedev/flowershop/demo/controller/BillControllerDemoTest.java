@@ -19,7 +19,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("demo")
-@Profile("demo")
 @Import(DemoTestConfig.class)
 class BillControllerDemoTest {
 

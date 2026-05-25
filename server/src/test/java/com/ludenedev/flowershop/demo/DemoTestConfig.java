@@ -1,14 +1,16 @@
 package com.ludenedev.flowershop.demo;
 
-import com.ludenedev.flowershop.adapter.mysql.entities.EntityFlower;
-import com.ludenedev.flowershop.adapter.mysql.repositories.FlowerRepository;
+import com.ludenedev.flowershop.prod.mysql.entities.EntityFlower;
+import com.ludenedev.flowershop.prod.mysql.repositories.FlowerRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-
-import java.util.UUID;
+import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.ActiveProfiles;
 
 @TestConfiguration
+@ActiveProfiles("demo")
+@Profile("demo")
 public class DemoTestConfig {
 
     public static EntityFlower flower = new EntityFlower();

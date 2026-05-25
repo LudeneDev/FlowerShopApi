@@ -1,4 +1,4 @@
-
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
 	id 'java'
@@ -9,10 +9,17 @@ plugins {
 group = 'com.ludenedev.flowers'
 version = '0.0.1-SNAPSHOT'
 
+def includeDemo = false
+
+
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(25)
 	}
+}
+
+springBoot {
+	mainClass = "com.ludenedev.flowershop.FlowersApplication"
 }
 
 
@@ -106,26 +113,54 @@ openApiGenerate {
 tasks.register("copyFrontend", Copy.class){
 	dependsOn(":frontend:buildFrontend")
 	from("../frontend/preact/dist/")
-	into("./src/main/resources/static/")
+	into("./build/resources/main/static/")
 }
 
 tasks.register("copyDocs", Copy.class){
 	dependsOn(":makedocs:makeDocs")
 	from("../makedocs/api.html")
-	into("./src/main/resources/static/")
-}
-
-tasks.named("build"){
-	dependsOn("processResources", "openApiGenerate")
+	into("./build/resources/main/static/")
 }
 
 
-tasks.named("processResources"){
-	dependsOn("copyFrontend")
-	dependsOn("copyDocs")
+compileJava{
+	dependsOn("openApiGenerate")
 }
+
+springBoot{
+	mainClass = "com.ludenedev.flowershop.FlowersApplication"
+}
+
+tasks.named("processResources") {
+	dependsOn("copyFrontend", "copyDocs", "openApiGenerate")
+}
+
 
 bootJar {
+
 	archiveFileName = "flowershop.jar"
+
 }
 
+
+tasks.register("bootDemo") {
+	group = "application"
+	description = "Runs the app with the 'demo' profile"
+	dependsOn("bootRun")
+
+	// Automatically inject the profile when this specific task runs
+	bootRun {
+		args = ['--spring.profiles.active=demo']
+	}
+}
+
+tasks.register("bootLocal") {
+	group = "application"
+	description = "Runs the app with the 'local' profile"
+	dependsOn("bootRun")
+
+	// Automatically inject the profile when this specific task runs
+	bootRun {
+		args = ['--spring.profiles.active=local']
+	}
+}

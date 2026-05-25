@@ -5,29 +5,69 @@ import { Home } from './pages/Home';
 import { NotFound } from './pages/_404.js';
 import './style.css';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from './theme';
+import getTheme from './theme.ts';
 import { CssBaseline } from '@mui/material';
+import { useEffect, useMemo, useState } from 'preact/hooks';
 
-export function App() {
+export function App({mode, setMode}) {
 	return (
 		<LocationProvider>
-
-
 			<main>
 				<Router>
-					<Route path="/" component={Home} />
+					<Route
+						path="/"
+						component={() => (
+							<Home mode={mode} setMode={setMode} />
+						)}
+					/>
+
 					<Route default component={NotFound} />
 				</Router>
 			</main>
-
 		</LocationProvider>
 	);
 }
 
 if (typeof window !== 'undefined') {
-	hydrate(<ThemeProvider theme={theme}><CssBaseline /><App /></ThemeProvider>, document.getElementById('app'));
+	hydrate(<Root />, document.getElementById('app'));
 }
 
 export async function prerender(data) {
 	return await ssr(<App {...data} />);
+}
+
+function Root() {
+
+
+
+
+
+const getInitialMode = () => {
+  const saved = localStorage.getItem('theme-mode');
+  if (saved === 'dark' || saved === 'light') return saved;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'dark'
+    : 'light';
+};
+
+const [mode, setMode] = useState<'light' | 'dark'>(
+  getInitialMode()
+);
+
+
+
+
+	useEffect(() => {
+		localStorage.setItem('theme-mode', mode);
+	}, [mode]);
+
+	const theme = useMemo(() => getTheme(mode), [mode]);
+
+	return (
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
+
+			<App mode={mode} setMode={setMode} />
+		</ThemeProvider>
+	);
 }

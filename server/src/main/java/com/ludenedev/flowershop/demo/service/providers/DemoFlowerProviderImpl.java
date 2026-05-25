@@ -1,12 +1,12 @@
 package com.ludenedev.flowershop.demo.service.providers;
 
-import com.ludenedev.flowershop.adapter.mysql.entities.EntityFlower;
+import com.ludenedev.flowershop.prod.mysql.entities.EntityFlower;
 import com.ludenedev.flowershop.demo.DemoContext;
 import com.ludenedev.flowershop.demo.entities.DemoEntityFlower;
 import com.ludenedev.flowershop.demo.entities.DemoEntitySession;
 import com.ludenedev.flowershop.demo.repositories.DemoFlowerRepository;
 import com.ludenedev.flowershop.demo.repositories.DemoSessionRepository;
-import com.ludenedev.flowershop.service.providers.FlowerProvider;
+import com.ludenedev.flowershop.prod.service.providers.FlowerProvider;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;

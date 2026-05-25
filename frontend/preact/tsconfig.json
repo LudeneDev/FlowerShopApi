@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"target": "ES2020",
 		"module": "ESNext",
-		"moduleResolution": "bundler",
+		"moduleResolution": "Bundler",
 		"noEmit": true,
 		"allowJs": true,
 		"checkJs": true,
@@ -17,5 +17,5 @@
 			"@api/*": ["./src/api/*"]
 		}
 	},
-	"include": ["node_modules/vite/client.d.ts", "**/*", "src/*"]
+	"include": ["src"]
 }

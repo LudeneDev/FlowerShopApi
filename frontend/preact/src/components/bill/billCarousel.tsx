@@ -1,7 +1,7 @@
 import { Bill } from "@api/api";
 import { useDataContext } from "../../pages/Home/Provider/dataProvider";
 import Carousel from "../carousel/carousel";
-import BillCard from "./billCard";
+import BillCard, { EmptyBillCard } from "./billCard";
 
 
 
@@ -13,13 +13,16 @@ export default function billCarousel() {
 
     return (
         <>
-            {bills != null && bills.length != 0 ? (
+            {bills != null ? (
                 <Carousel
                     data={bills}
-                    renderItem={(item: Bill, index: Number, isActive: boolean) => (
-                        <BillCard key={item.id} bill={item}>
+                    renderItem={(item: Bill | null, index: Number, isActive: boolean) => (
 
-                        </BillCard>
+
+                        item != null ? (<BillCard key={item.id} bill={item} />) : (<EmptyBillCard />)
+
+
+
                     )
 
                     }

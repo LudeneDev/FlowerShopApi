@@ -1,31 +1,52 @@
-
 import Carousel from '../carousel/carousel';
-import { Flower } from "@api/api"
+import {Flower} from "@api/api"
 import FlowerCard from './flowerCardComp';
-import { useDataContext } from '../../pages/Home/Provider/dataProvider';
+import {useDataContext} from '../../pages/Home/Provider/dataProvider';
+import CreateFlowerCard from "./createFlowerCard";
+import CarouselItem from "../carousel/carouselItem";
 
-const FlowerCarousel = () => {
-  const { flowers } = useDataContext()
+interface FlowerCarouselProps {
+    adminMode?: boolean
+}
 
-
-  return (
-    <>
-      {flowers != null && flowers.length != 0 ?
-        (<Carousel
-          data={flowers}
-          renderItem={(flower: Flower, index: Number, isActive: boolean) => (
-            <FlowerCard selected={isActive} key={flower.id} flower={flower}>
-
-            </FlowerCard>
-          )}>
-
-        </Carousel>)
-        : (<div>Loading</div>)}
-
-    </>
+type FlowerEntry =
+  | Flower
+  | {type : "create"}
 
 
-  );
+const FlowerCarousel = (prop : FlowerCarouselProps) => {
+    const {flowers} = useDataContext()
+    const data : FlowerEntry[] = [
+      ...(flowers ?? []),
+      ...(prop.adminMode ? [{ type: "create" as const }] : []),
+
+    ];
+
+
+    return (
+        <>
+            {flowers != null && flowers.length != 0 ?
+                (<Carousel
+                    data={data}
+                    renderItem={(flower: FlowerEntry, index: Number, isActive: boolean) => {
+
+                        if(prop.adminMode && flower.type === "create"){
+                        return <CreateFlowerCard selected={isActive} key={"create"} />
+                    }
+
+                        return <FlowerCard selected={isActive} key={flower.id} flower={flower}/>
+
+
+            }}>
+
+
+                </Carousel>)
+                : (<div>Loading</div>)}
+
+        </>
+
+
+    );
 };
 
 export default FlowerCarousel;

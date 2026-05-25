@@ -1,13 +1,13 @@
 package com.ludenedev.flowershop.demo.service;
 
 
-import com.ludenedev.flowershop.adapter.mysql.entities.EntityBill;
-import com.ludenedev.flowershop.adapter.mysql.entities.EntityBouquetFlower;
-import com.ludenedev.flowershop.adapter.mysql.entities.EntityBouquetItem;
-import com.ludenedev.flowershop.adapter.mysql.entities.EntityFlower;
-import com.ludenedev.flowershop.adapter.mysql.repositories.BillRepository;
-import com.ludenedev.flowershop.adapter.mysql.repositories.BouquetRepository;
-import com.ludenedev.flowershop.adapter.mysql.repositories.FlowerRepository;
+import com.ludenedev.flowershop.prod.mysql.entities.EntityBill;
+import com.ludenedev.flowershop.prod.mysql.entities.EntityBouquetFlower;
+import com.ludenedev.flowershop.prod.mysql.entities.EntityBouquetItem;
+import com.ludenedev.flowershop.prod.mysql.entities.EntityFlower;
+import com.ludenedev.flowershop.prod.mysql.repositories.BillRepository;
+import com.ludenedev.flowershop.prod.mysql.repositories.BouquetRepository;
+import com.ludenedev.flowershop.prod.mysql.repositories.FlowerRepository;
 import com.ludenedev.flowershop.demo.entities.DemoEntityBill;
 import com.ludenedev.flowershop.demo.entities.DemoEntityBouquetItem;
 import com.ludenedev.flowershop.demo.entities.DemoEntityFlower;

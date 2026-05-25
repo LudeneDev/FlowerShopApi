@@ -1,6 +1,6 @@
 package com.ludenedev.flowershop.demo.entities;
 
-import com.ludenedev.flowershop.adapter.mysql.entities.EntityBouquetItem;
+import com.ludenedev.flowershop.prod.mysql.entities.EntityBouquetItem;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +23,6 @@ public class DemoEntityBouquetItem {
     @ManyToOne
     DemoEntitySession session;
 
-    @OneToOne
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
     EntityBouquetItem item;
 }

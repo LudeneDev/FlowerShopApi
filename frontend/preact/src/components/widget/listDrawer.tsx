@@ -7,17 +7,19 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Checkout from './checkout';
 import createBouquet from '../bouquet/createBouquet';
 import { useDataContext } from '../../pages/Home/Provider/dataProvider';
+import {CreateBouquetItem} from "@api/model";
 
 export default function ListDrawer({ open, setOpen, flowers, context }: any) {
-  const { refetch } = useDataContext();
-  const orders = context.orders;
+  const {createBouquet} = useDataContext();
+  const orders  = context.orders;
   const checkout = async () => {
-    const status = await createBouquet({ items: orders })
-    if (status == 201) {
-      refetch();
+     const res = await createBouquet({items : context.orders})
+    if(res === 201){
       context.clearBouquet();
       setOpen(false)
     }
+
+
   }
 
   const totalPrice = orders.reduce((sum, order) => {

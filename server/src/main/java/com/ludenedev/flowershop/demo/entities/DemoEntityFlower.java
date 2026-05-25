@@ -1,6 +1,6 @@
 package com.ludenedev.flowershop.demo.entities;
 
-import com.ludenedev.flowershop.adapter.mysql.entities.EntityFlower;
+import com.ludenedev.flowershop.prod.mysql.entities.EntityFlower;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +20,7 @@ public class DemoEntityFlower {
     @ManyToOne
     DemoEntitySession session;
 
-    @OneToOne
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
     @JoinColumn(name = "flower_id")
     EntityFlower flower;
 

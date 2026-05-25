@@ -20,7 +20,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("demo")
-@Profile("demo")
 @Import(DemoTestConfig.class)
 class ScopeIsolationTest {
 

@@ -2,9 +2,9 @@ package com.ludenedev.flowershop.controller;
 
 
 import com.ludenedev.flowershop.FlowersApplication;
-import com.ludenedev.flowershop.adapter.mysql.entities.EntityFlower;
-import com.ludenedev.flowershop.adapter.mysql.repositories.FlowerRepository;
-import com.ludenedev.flowershop.service.FlowersService;
+import com.ludenedev.flowershop.prod.mysql.entities.EntityFlower;
+import com.ludenedev.flowershop.prod.mysql.repositories.FlowerRepository;
+import com.ludenedev.flowershop.prod.service.FlowersService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 

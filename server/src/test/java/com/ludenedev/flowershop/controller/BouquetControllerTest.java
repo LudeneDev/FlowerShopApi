@@ -1,14 +1,14 @@
 package com.ludenedev.flowershop.controller;
 
 
-import com.ludenedev.flowershop.adapter.mysql.entities.EntityBill;
-import com.ludenedev.flowershop.adapter.mysql.entities.EntityBouquetItem;
-import com.ludenedev.flowershop.adapter.mysql.entities.EntityFlower;
-import com.ludenedev.flowershop.adapter.mysql.repositories.BouquetRepository;
+import com.ludenedev.flowershop.prod.mysql.entities.EntityBill;
+import com.ludenedev.flowershop.prod.mysql.entities.EntityBouquetItem;
+import com.ludenedev.flowershop.prod.mysql.entities.EntityFlower;
+import com.ludenedev.flowershop.prod.mysql.repositories.BouquetRepository;
 import com.ludenedev.flowershop.model.CreateBouquetFlower;
 import com.ludenedev.flowershop.model.CreateBouquetItem;
-import com.ludenedev.flowershop.service.BouquetService;
-import com.ludenedev.flowershop.service.FlowersService;
+import com.ludenedev.flowershop.prod.service.BouquetService;
+import com.ludenedev.flowershop.prod.service.FlowersService;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +16,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.text.MessageFormat;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;

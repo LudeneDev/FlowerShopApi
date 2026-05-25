@@ -1,8 +1,10 @@
 import { useState } from 'preact/hooks';
-import { Grid, IconButton } from '@mui/material';
+import styles from './Carousel.module.css';
+import { Box, Grid, IconButton } from '@mui/material';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import ArrowForward from '@mui/icons-material/ArrowForward';
 import CarouselItem from './carouselItem';
+import IndicatorBar from "./indicatorBar";
 
 interface CarouselProps<T> {
   data: T[];
@@ -20,46 +22,50 @@ export default function Carousel<T>({ data, renderItem }: CarouselProps<T>) {
 
 
 
+
   return (
-    <Grid
-      container
-      columns={{ xs: 4, sm: 12 }}
-      sx={{
-        height: '100vh',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}
+      <>
+ <div className={styles.carousel}>
+
+    {/* LEFT ARROW */}
+    <IconButton
+      onClick={prev}
+      color='primary'
+      sx={{ flexShrink: 0 }} // Just a tiny MUI tweak, rest is CSS
     >
-      {/* Left Arrow */}
-      <Grid size={1} sx={{ display: 'flex', justifyContent: 'center' }}>
-        <IconButton size="large" onClick={prev} color='primary'>
-          <ArrowBack fontSize="large" />
-        </IconButton>
-      </Grid>
+      <ArrowBack sx={{ fontSize: { xs: '1.5rem', md: '2.5rem' }, zIndex: 50 }} />
+    </IconButton>
 
-      {/* Center Stage */}
-      <Grid
-        size={{ xs: 2, sm: 10 }}
-        sx={{ position: 'relative', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-      >
-        {data.map((item, index) => (
-
-          <CarouselItem
-            key={index}
-            index={index}
-            activeIndex={activeIndex}
-          >
+    {/* THE CARD AREA */}
+    <div className={styles.cardArea}>
+      {data.length !== 0 ? (
+        data.map((item, index) => (
+          <CarouselItem key={index} index={index} activeIndex={activeIndex}>
             {renderItem(item, index, (index === activeIndex))}
           </CarouselItem>
-        ))}
-      </Grid>
+        ))
+      ) : (
+        <CarouselItem key="empty" index={0} activeIndex={0}>
+          {renderItem(null, 0, true)}
+        </CarouselItem>
+      )}
+    </div>
 
-      {/* Right Arrow */}
-      <Grid size={1} sx={{ display: 'flex', justifyContent: 'center' }}>
-        <IconButton size="large" onClick={next} color='primary'>
-          <ArrowForward fontSize="large" />
-        </IconButton>
-      </Grid>
-    </Grid>
+    {/* RIGHT ARROW */}
+    <IconButton
+      onClick={next}
+      color='primary'
+      sx={{ flexShrink: 0 }}
+    >
+      <ArrowForward sx={{ fontSize: { xs: '1.5rem', md: '2.5rem' }, zIndex: 50 }} />
+    </IconButton>
+
+
+
+  </div>
+
+        <IndicatorBar data={data} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
+  </>
   );
 }
+

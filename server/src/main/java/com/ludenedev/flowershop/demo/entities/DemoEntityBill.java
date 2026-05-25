@@ -1,6 +1,6 @@
 package com.ludenedev.flowershop.demo.entities;
 
-import com.ludenedev.flowershop.adapter.mysql.entities.EntityBill;
+import com.ludenedev.flowershop.prod.mysql.entities.EntityBill;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +21,7 @@ public class DemoEntityBill {
     @ManyToOne
     DemoEntitySession session;
 
-    @OneToOne
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
     EntityBill bill;
 
 
