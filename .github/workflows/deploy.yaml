@@ -59,10 +59,16 @@ jobs:
       # -----------------------------
       # Build Docker image
       # -----------------------------
+      - name: Set lowercase repository
+        run: echo "REPO_LC=${GITHUB_REPOSITORY,,}" >> ${GITHUB_ENV}
 
       - name: Build Docker Image
         run: |
-          docker build -t ghcr.io/${{ github.repository }}/flowershop:latest .
+          docker build -t ghcr.io/${REPO_LC}/flowershop:latest .
+
+      - name: Push Docker Image
+        run: |
+          docker push ghcr.io/${REPO_LC}/flowershop:latest
 
       # -----------------------------
       # Push Docker image
