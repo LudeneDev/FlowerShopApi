@@ -1,0 +1,74 @@
+.flipContainer {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  min-height: 340px;
+
+  transform-style: preserve-3d;
+
+  transition: transform 0.6s;
+}
+
+.flipContainer.isFlipped {
+  transform: rotateY(180deg);
+}
+
+.face {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  backface-visibility: hidden;
+}
+
+.front {
+  transform: rotateY(0deg);
+}
+
+.back {
+  transform: rotateY(180deg);
+}
+
+@keyframes flowerFly {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+
+  60% {
+    transform:
+      translate(calc(-50% + var(--x)), calc(-50% + var(--y)))
+      rotate(calc(var(--r) * 0.6))
+      scale(1.2);
+    opacity: 1;
+  }
+
+  100% {
+    transform:
+      translate(calc(-50% + var(--x)), calc(-50% + var(--y)))
+      rotate(var(--r))
+      scale(1);
+    opacity: 1;
+  }
+}
+
+.flowerFly {
+  animation: flowerFly 0.7s ease-out forwards;
+}
+
+.text {
+  font-size: clamp(1rem, 2vw, 2rem) ;
+  padding: 0;
+  margin: 0;
+}
+
+.title {
+  font-size: clamp(2rem, 3vw, 4rem) !important;
+  padding: 0;
+  margin: 0;
+}

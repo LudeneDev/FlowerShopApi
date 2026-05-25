@@ -1,0 +1,52 @@
+.carousel {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  padding: 1rem;
+
+  box-sizing: border-box;
+}
+
+@media (min-width: 900px) {
+  .carousel {
+    gap: 24px;
+    padding: 0 16px;
+  }
+}
+
+.cardArea {
+  position: relative;
+
+  width: min(100%, 1200px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: visible;
+
+
+  aspect-ratio: 16 / 9;
+}
+
+.indicatorBar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 16px;
+  height: 20px;
+}
+
+.segment {
+  width: 10px;
+  height: 6px;
+  background: white;
+  border-radius: 6px;
+  transition: all 0.35s ease;
+  cursor: pointer;
+}
