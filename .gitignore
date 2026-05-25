@@ -7,6 +7,10 @@ build/
 .env
 /redocly
 .application-local.properties
+/frontend/preact/dist
+/frontend/preact/node_modules
+/frontend/preact/public
+/frontend/preact/src/api
 ### STS ###
 .apt_generated
 .classpath
@@ -25,8 +29,9 @@ bin/
 *.iml
 *.ipr
 out/
-!**/src/main/**/out/
-!**/src/test/**/out/
+!**/server/src/main/**/out/
+!**/server/src/test/**/out/
+/server/build
 
 ### NetBeans ###
 /nbproject/private/
@@ -37,3 +42,5 @@ out/
 
 ### VS Code ###
 .vscode/
+/frontend/preact/.vscode
+
