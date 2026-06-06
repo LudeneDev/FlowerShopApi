@@ -27,6 +27,7 @@ public class DemoSecurityConfig {
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/demo/**").permitAll()
+                        .requestMatchers("/api/config/**").permitAll()
                         .requestMatchers("/api/**").authenticated()
                         .requestMatchers("/actuator/**").permitAll()
                         .anyRequest().permitAll()
